@@ -29,7 +29,7 @@ public:
     {
         return title;
     };
-    void addReview(Review *&head, float rating, string comment)
+    void addReview(Review *&head, float rating, string comment) // Function to add a review to the linked list of reviews for the movie.
     {
         if (!head)
         { // if this is the first node, it's the new head
@@ -49,7 +49,7 @@ public:
     };
 };
 
-    const int NUM_MOVIES = 4; // Constant for the number of movies to be entered (TESTING)
+const int NUM_MOVIES = 4; // Constant for the number of movies to be entered (TESTING)
 
 int main()
 {
@@ -65,11 +65,20 @@ int main()
 
     vector<Movie> movies = {movie1, movie2, movie3, movie4}; // Vector to hold the movies.
 
-    for (int i = 0; i < NUM_MOVIES; i++)
+    ifstream inFile("Movie_Comments.txt"); // Open the file for reading.
+    if (!inFile)
     {
-        movies[i]->Review *head = nullptr; // Initialize head of reviews for each movie
-    })
-
+        cerr << "Error opening file!" << endl;
+        return; // Exits the program if the file cannot be opened.
+    }
+    float rating;
+    string comment;
+    while (inFile >> rating) // Reads rating from file.
+    {
+        inFile.ignore(); // Ignore the newline character after reading the rating.
+        getline(inFile, comment); // Reads line of comment from file.
+        
+    }
 
     return 0;
 }
