@@ -6,18 +6,20 @@
 using namespace std;
 
 // Keep Review struct from lab 18
-struct Review
-{ // Node for linked list with review data.
-    float rating;
-    string comment;
-    Review *next; // Pointer to the next review in the linked list.
-};
 
+// NOTE: What if we add our struct to our movie class? It may simplify our linked lists of reviews per movie.
 // Movie class to hold movie name and linked list of reviews.
 class Movie
 {
-    string title;
-    Review *head; // Pointer to the head of the linked list of reviews.
+    struct Review
+    { // Node for linked list with review data.
+        float rating;
+        string comment;
+        Review *next; // Pointer to the next review in the linked list.
+    };
+    string title; // Movie title
+    Review *head; // Pointer to the head of the linked list of reviews
+
 public:
     void setTitle(string t)
     {
@@ -45,7 +47,6 @@ public:
             head = newReview; // update head to point to the new review
         }
     };
-
 };
 
 void readFromFile(Review *&head, string filename);
@@ -56,7 +57,6 @@ int main()
 
     return 0;
 }
-
 
 void readFromFile(Review *&head, string filename)
 {
@@ -72,9 +72,8 @@ void readFromFile(Review *&head, string filename)
 
     while (inFile >> rating)
     {
-        inFile.ignore(); // Ignore the newline after the rating
+        inFile.ignore();          // Ignore the newline after the rating
         getline(inFile, comment); // Read the comment line
-        
     }
 
     inFile.close();
