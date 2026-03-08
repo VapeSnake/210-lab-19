@@ -21,8 +21,20 @@ class Movie
     Review *head; // Pointer to the head of the linked list of reviews
 
 public:
-    Movie() {
+    Movie()
+    {
         head = nullptr; // Initialize head to nullptr in the constructor.
+                        // This ensures that when a Movie object is created, it starts with an empty list of reviews.
+    };
+    ~Movie()
+    {                           // Destructor to free memory allocated for reviews when a Movie object is destroyed.
+        Review *current = head; // Start at the head of the linked list of reviews.
+        while (current)
+        {                            // Loop through the linked list and delete each review node to free memory.
+            Review *temp = current;  // Store the current review node in a temporary pointer.
+            current = current->next; // Move to the next review node in the linked list.
+            delete temp;             // Delete the current review node to free memory.
+        }
     };
     void setTitle(string t)
     {
@@ -55,14 +67,15 @@ public:
         cout << "Reviews for " << title << ":" << endl;
         Review *current = head; // Start at the head of the linked list of reviews.
         while (current)
-        { // Loop through the linked list until we reach the end (nullptr).
+        {                                                                                             // Loop through the linked list until we reach the end (nullptr).
             cout << fixed << setprecision(1) << current->rating << " - " << current->comment << endl; // Display the rating and comment for each review.
-            current = current->next; // Move to the next review in the linked list.
+            current = current->next;                                                                  // Move to the next review in the linked list.
         }
     };
 };
 
-const int NUM_MOVIES = 4; // Constant for the number of movies to be entered (TESTING)
+const int NUM_MOVIES = 4;  // Constant for the number of movies to be entered (TESTING)
+const int MAX_REVIEWS = 3; // Constant for the maximum number of reviews per movie (TESTING)
 
 int main()
 {
@@ -82,25 +95,28 @@ int main()
     if (!inFile)
     {
         cerr << "Error opening file!" << endl;
-        return 0; // Exits the program if the file cannot be opened.
+        return 1; // Exit with an error code if the file cannot be opened.
     }
-    float rating;
-    string comment;
     for (int i = 0; i < NUM_MOVIES; i++)
     {
-        while (inFile >> rating) // Reads rating from file.
+            float rating;
+            string comment;
+        for (int j = 0; j < MAX_REVIEWS; j++) // Loop to read 3 reviews per movie.
         {
-            inFile.ignore(); // Ignore the newline character after reading the rating.
-            getline(inFile, comment); // Reads line of comment from file.
-            movies[i].addReview(rating, comment); // Adds the review to the movie's linked list of reviews.
+
+            while (inFile >> rating) // Reads rating from file.
+            {
+                inFile.ignore();                      // Ignore the newline character after reading the rating.
+                getline(inFile, comment);             // Reads line of comment from file.
+                movies[i].addReview(rating, comment); // Adds the review to the movie's linked list of reviews.
+            }
+        }
+
+        for (const Movie &movie : movies)
+        {
+            movie.displayReviews(); // Displays the reviews for each movie.
+            cout << endl;           // Print a newline for better formatting between movies.
         }
     }
-
-    for (const Movie &movie : movies)
-    {
-        movie.displayReviews(); // Displays the reviews for each movie.
-        cout << endl; // Print a newline for better formatting between movies.
-    }
-
     return 0;
 }
