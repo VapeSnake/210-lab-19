@@ -25,7 +25,7 @@ public:
     {
         title = t;
     };
-    string getTitle()
+    string getTitle() const
     {
         return title;
     };
@@ -49,32 +49,16 @@ public:
     };
 };
 
-void readFromFile(Review *&head, string filename);
-void displayReviewsAndAverage(Review *head);
+    const int NUM_MOVIES = 4; // Constant for the number of movies to be entered (TESTING)
 
 int main()
 {
+    for (int i = 0; i < NUM_MOVIES; i++) // Loop to enter movie data (TESTING)
+    {
+        Movie tempMovie; // Create a temporary Movie object to hold the movie data
+        tempMovie.
+    }
 
+    vector<Movie> movies; // Vector to hold movies
     return 0;
-}
-
-void readFromFile(Review *&head, string filename)
-{
-    ifstream inFile(filename);
-    if (!inFile)
-    {
-        cerr << "Error opening file: " << filename << endl;
-        return;
-    }
-
-    float rating;
-    string comment;
-
-    while (inFile >> rating)
-    {
-        inFile.ignore();          // Ignore the newline after the rating
-        getline(inFile, comment); // Read the comment line
-    }
-
-    inFile.close();
 }
