@@ -11,6 +11,20 @@ struct Review { // Node for linked list with review data.
     Review * next; // Pointer to the next review in the linked list.
 };
 
+// Movie class to hold movie name and linked list of reviews.
+class Movie {
+    string title;
+    Review * head; // Pointer to the head of the linked list of reviews.
+    public:
+    void setTitle(string t) {
+        title = t;
+    };
+    string getTitle() {
+        return title;
+    };
+    
+}
+
 // BREAK OVER
 
 int main() {
