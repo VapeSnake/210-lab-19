@@ -53,12 +53,23 @@ public:
 
 int main()
 {
-    for (int i = 0; i < NUM_MOVIES; i++) // Loop to enter movie data (TESTING)
-    {
-        Movie tempMovie; // Create a temporary Movie object to hold the movie data
-        tempMovie.
-    }
+    Movie movie1;
+    Movie movie2;
+    Movie movie3;
+    Movie movie4;
 
-    vector<Movie> movies; // Vector to hold movies
+    movie1.setTitle("The Shawshank Redemption");
+    movie2.setTitle("The Godfather");
+    movie3.setTitle("No Country for Old Men");
+    movie4.setTitle("Blade Runner");
+
+    vector<Movie> movies = {movie1, movie2, movie3, movie4}; // Vector to hold the movies.
+
+    for (int i = 0; i < NUM_MOVIES; i++)
+    {
+        movies[i]->Review *head = nullptr; // Initialize head of reviews for each movie
+    })
+
+
     return 0;
 }
