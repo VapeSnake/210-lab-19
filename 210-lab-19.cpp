@@ -48,7 +48,7 @@ public:
 
 };
 
-void readCommentFromFile(Review *&head, string filename);
+void readFromFile(Review *&head, string filename);
 void displayReviewsAndAverage(Review *head);
 
 int main()
@@ -58,7 +58,7 @@ int main()
 }
 
 
-void readCommentFromFile(Review *&head, string filename)
+void readFromFile(Review *&head, string filename)
 {
     ifstream inFile(filename);
     if (!inFile)
@@ -67,14 +67,15 @@ void readCommentFromFile(Review *&head, string filename)
         return;
     }
 
+    float rating;
     string comment;
 
-   
+    while (inFile >> rating)
+    {
         inFile.ignore(); // Ignore the newline after the rating
         getline(inFile, comment); // Read the comment line
-        // Add the review to the linked list
-        Movie movie; // Create a Movie object to use addReview
-        movie.addReview(head, rating, comment);
+        
     }
 
     inFile.close();
+}
