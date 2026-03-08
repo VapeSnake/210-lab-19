@@ -66,10 +66,19 @@ public:
     {
         cout << "Reviews for " << title << ":" << endl;
         Review *current = head; // Start at the head of the linked list of reviews.
+        float totalRating = 0;  // Variable to keep track of the total rating, used for calculating the average rating.
+        int reviewCount = 0;    // Variable to keep track of the number of reviews processed, used for calculating the average rating.
+
         while (current)
-        {        // Loop through the linked list until we reach the end (nullptr).
+        { // Loop through the linked list until we reach the end (nullptr).
             cout << fixed << setprecision(1) << current->rating << " - " << current->comment << endl;
-            current = current->next;
+            totalRating += current->rating; // Add the current review's rating to the total rating.
+            reviewCount++;                  // Increment the review count to keep track of how many reviews we have processed.
+            current = current->next;        // Move to the next review node in the linked list.
+        }
+        if (reviewCount > 0)
+        {
+            cout << "Average Rating: " << fixed << setprecision(1) << totalRating / reviewCount << endl;
         }
     };
 };
@@ -79,6 +88,7 @@ const int MAX_REVIEWS = 3; // Constant for the maximum number of reviews per mov
 
 int main()
 {
+    cout << " -- START OF PROGRAM -- " << endl;
     Movie movie1;
     Movie movie2;
     Movie movie3;
@@ -105,21 +115,21 @@ int main()
             string comment;
             if (inFile >> rating) // Reads rating from file.
             {
-                inFile.ignore(1000, '\n');            // Ignore the newline character after reading
-                getline(inFile, comment);             // the rating to ensure that getline reads the comment correctly.
+                inFile.ignore(1000, '\n'); // Ignore the newline character after reading
+                getline(inFile, comment);  // the rating to ensure that getline reads the comment correctly.
                 movies[i].addReview(rating, comment);
-            }                           
+            }
             else
             {
                 break; // stop if no more ratings available
             }
         }
-
-        for (const Movie &movie : movies)
-        {
-            movie.displayReviews(); // Displays the reviews for each movie.
-            cout << endl;           // Print a newline for better formatting between movies.
-        }
     }
+    for (const Movie &movie : movies)
+    {
+        movie.displayReviewsWithAverage(); // Displays the reviews and average rating for each movie.
+        cout << endl;                      // Print a newline for better formatting between movies.
+    }
+    cout << " -- END OF PROGRAM -- " << endl;
     return 0;
 }
