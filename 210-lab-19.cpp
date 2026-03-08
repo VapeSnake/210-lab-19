@@ -78,4 +78,3 @@ void readCommentFromFile(Review *&head, string filename)
     }
 
     inFile.close();
-}
