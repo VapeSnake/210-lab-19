@@ -99,16 +99,19 @@ int main()
     }
     for (int i = 0; i < NUM_MOVIES; i++)
     {
-            float rating;
-            string comment;
         for (int j = 0; j < MAX_REVIEWS; j++) // Loop to read 3 reviews per movie.
         {
-
-            while (inFile >> rating) // Reads rating from file.
+            float rating;
+            string comment;
+            if (inFile >> rating) // Reads rating from file.
             {
-                inFile.ignore();                      // Ignore the newline character after reading the rating.
+                inFile.ignore(1000, '\n'); // Ignore the newline character after reading the rating to ensure that getline reads the comment correctly.
                 getline(inFile, comment);             // Reads line of comment from file.
                 movies[i].addReview(rating, comment); // Adds the review to the movie's linked list of reviews.
+            }
+            else
+            {
+                break; // stop if no more ratings available
             }
         }
 
