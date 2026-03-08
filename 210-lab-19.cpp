@@ -62,20 +62,20 @@ public:
             head = newReview; // update head to point to the new review
         }
     };
-    void displayReviews() const // Function to display all reviews for the movie.
+    void displayReviewsWithAverage() const // Function to display all reviews for the movie.
     {
         cout << "Reviews for " << title << ":" << endl;
         Review *current = head; // Start at the head of the linked list of reviews.
         while (current)
-        {                                                                                             // Loop through the linked list until we reach the end (nullptr).
-            cout << fixed << setprecision(1) << current->rating << " - " << current->comment << endl; // Display the rating and comment for each review.
-            current = current->next;                                                                  // Move to the next review in the linked list.
+        {        // Loop through the linked list until we reach the end (nullptr).
+            cout << fixed << setprecision(1) << current->rating << " - " << current->comment << endl;
+            current = current->next;
         }
     };
 };
 
-const int NUM_MOVIES = 4;  // Constant for the number of movies to be entered (TESTING)
-const int MAX_REVIEWS = 3; // Constant for the maximum number of reviews per movie (TESTING)
+const int NUM_MOVIES = 4;  // Constant for the number of movies to be entered.
+const int MAX_REVIEWS = 3; // Constant for the maximum number of reviews per movie.
 
 int main()
 {
@@ -83,7 +83,7 @@ int main()
     Movie movie2;
     Movie movie3;
     Movie movie4;
-
+    // Create and set titles for Movie objects.
     movie1.setTitle("The Shawshank Redemption");
     movie2.setTitle("The Godfather");
     movie3.setTitle("No Country for Old Men");
@@ -105,10 +105,10 @@ int main()
             string comment;
             if (inFile >> rating) // Reads rating from file.
             {
-                inFile.ignore(1000, '\n'); // Ignore the newline character after reading the rating to ensure that getline reads the comment correctly.
-                getline(inFile, comment);             // Reads line of comment from file.
-                movies[i].addReview(rating, comment); // Adds the review to the movie's linked list of reviews.
-            }
+                inFile.ignore(1000, '\n');            // Ignore the newline character after reading
+                getline(inFile, comment);             // the rating to ensure that getline reads the comment correctly.
+                movies[i].addReview(rating, comment);
+            }                           
             else
             {
                 break; // stop if no more ratings available
