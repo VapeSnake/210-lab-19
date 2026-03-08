@@ -44,7 +44,48 @@ public:
             newReview->comment = comment;
             head = newReview; // update head to point to the new review
         }
+    };
+    void readCommentFromFile(Review *&head, string filename)
+    {
+        ifstream inFile("Movie_Comments.txt");
+        if(!inFile)
+        {
+            cout << "Error opening file: " << filename << endl;
+            return;
+        }
+        string line;
+        getline(inFile, line); // Read the first review comment from the file
+        
+        if (line.empty())
+        {
+            cout << "No reviews found in the file." << endl;
+            return;
+        }
     }
+    void displayReviewsAndAverage(Review *head)
+    {
+        if (!head)
+        {
+            cout << "No reviews to display." << endl;
+            return;
+        }
+        Review *current = head;
+        float totalRating = 0.0;
+        int reviewCount = 0;
+
+        cout << "Reviews for " << title << ":" << endl;
+        while (current)
+        {
+            cout << fixed << setprecision(1) << current->rating << " - " << current->comment << endl;
+            totalRating += current->rating;
+            reviewCount++;
+            current = current->next;
+        }
+        if (reviewCount > 0)
+        {
+            cout << "Average Rating: " << fixed << setprecision(1) << (totalRating / reviewCount) << endl;
+        }
+    };
 };
 
 
