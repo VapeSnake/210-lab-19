@@ -21,6 +21,9 @@ class Movie
     Review *head; // Pointer to the head of the linked list of reviews
 
 public:
+    Movie() {
+        head = nullptr; // Initialize head to nullptr in the constructor.
+    };
     void setTitle(string t)
     {
         title = t;
@@ -29,7 +32,7 @@ public:
     {
         return title;
     };
-    void addReview(Review *&head, float rating, string comment) // Function to add a review to the linked list of reviews for the movie.
+    void addReview(float rating, string comment) // Function to add a review to the linked list of reviews for the movie.
     {
         if (!head)
         { // if this is the first node, it's the new head
@@ -45,6 +48,16 @@ public:
             newReview->rating = rating;
             newReview->comment = comment;
             head = newReview; // update head to point to the new review
+        }
+    };
+    void displayReviews() const // Function to display all reviews for the movie.
+    {
+        cout << "Reviews for " << title << ":" << endl;
+        Review *current = head; // Start at the head of the linked list of reviews.
+        while (current)
+        { // Loop through the linked list until we reach the end (nullptr).
+            cout << fixed << setprecision(1) << current->rating << " - " << current->comment << endl; // Display the rating and comment for each review.
+            current = current->next; // Move to the next review in the linked list.
         }
     };
 };
@@ -69,15 +82,24 @@ int main()
     if (!inFile)
     {
         cerr << "Error opening file!" << endl;
-        return; // Exits the program if the file cannot be opened.
+        return 0; // Exits the program if the file cannot be opened.
     }
     float rating;
     string comment;
-    while (inFile >> rating) // Reads rating from file.
+    for (int i = 0; i < NUM_MOVIES; i++)
     {
-        inFile.ignore(); // Ignore the newline character after reading the rating.
-        getline(inFile, comment); // Reads line of comment from file.
-        
+        while (inFile >> rating) // Reads rating from file.
+        {
+            inFile.ignore(); // Ignore the newline character after reading the rating.
+            getline(inFile, comment); // Reads line of comment from file.
+            movies[i].addReview(rating, comment); // Adds the review to the movie's linked list of reviews.
+        }
+    }
+
+    for (const Movie &movie : movies)
+    {
+        movie.displayReviews(); // Displays the reviews for each movie.
+        cout << endl; // Print a newline for better formatting between movies.
     }
 
     return 0;
