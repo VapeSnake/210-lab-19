@@ -5,7 +5,6 @@
 #include <iomanip>
 using namespace std;
 // Keep Review struct from lab 18
-// NOTE: What if we add our struct to our movie class? It may simplify our linked lists of reviews per movie.
 // Movie class to hold movie name and linked list of reviews.
 class Movie {
     struct Review { // Node for linked list with review data.
